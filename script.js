@@ -24,13 +24,15 @@ async function fetchBikes() {
         : fields.bikeType;
 
       const colours = fields.bikeColour || [];
-
       const images = fields.bikeImage || [];
       const imageUrls = [];
-      if (images.length > 0 && images[0]?.fields?.file?.url) {
-        const url = images[0].fields.file.url;
-        imageUrls.push((url.startsWith("//") ? "https:" : "") + url);
-      }
+      images.forEach((img) => {
+        if (img?.fields?.file?.url) {
+          const url = img.fields.file.url;
+          const fullUrl = url.startsWith("//") ? `https:${url}` : url;
+          imageUrls.push(fullUrl);
+        }
+      });
 
       return {
         id: fields.id,
@@ -41,8 +43,6 @@ async function fetchBikes() {
         colours: colours,
       };
     });
-
-    console.log(allBikes);
 
     bikeTypes = [...new Set(allBikes.map((b) => b.bikeType))];
     renderNavBar();
@@ -144,20 +144,33 @@ function renderBikes() {
         swatch.setAttribute("data-color", colorHex);
         swatch.title = colorHex;
 
-        if (
-          colorHex.toLowerCase() === "#ffffff" ||
-          colorHex.toLowerCase() === "#fff" ||
-          colorHex.toLowerCase() === "white"
-        ) {
-          swatch.classList.add("white");
-        }
-
         swatch.onclick = () => {
           card
             .querySelectorAll(".color-swatch")
             .forEach((s) => s.classList.remove("active"));
           swatch.classList.add("active");
+
+          const imgTag = card.querySelector("img");
+          const bikeId = bike.id;
+
+          const colorSpecificImage = bike.bikeImages.find(
+            (img) =>
+              img.includes(colorHex.replace("#", "")) ||
+              img.includes(bikeId + "_" + colorHex.replace("#", ""))
+          );
+
+          if (colorSpecificImage) {
+            console.log(colorSpecificImage);
+
+            imgTag.src = colorSpecificImage;
+          } else {
+            imgTag.src = bike.bikeImages[0] || "/placeholder-bike.jpg";
+          }
+
+          console.log(`Color changed to ${colorHex} for bike ${bikeId}`);
+          console.log("Available images:", bike.bikeImages);
         };
+
         coloursDiv.appendChild(swatch);
       });
     }

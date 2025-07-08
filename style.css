@@ -6,9 +6,8 @@
 }
 
 body {
- 
+
     background: #f8f8f8;
-    color: #333;
 }
 
 .header {
@@ -28,7 +27,7 @@ body {
 }
 
 .nav-container {
-    max-width: 1400px;
+    max-width: 1433px;
     margin: 0 auto;
     padding: 0 2rem;
     margin-bottom: 3rem;
@@ -38,7 +37,7 @@ body {
     display: flex;
     justify-content: center;
     gap: 0;
-   
+
 }
 
 .nav-btn {
@@ -68,7 +67,9 @@ body {
 .container {
     max-width: 1400px;
     margin: 0;
-    padding: 0 2rem;
+    padding: 15px 2rem;
+    overflow-x: auto;
+
 }
 
 .bikes-grid {
@@ -76,21 +77,23 @@ body {
     gap: 2rem;
     flex-direction: row;
 
+
 }
 
 .bike-card {
-    width: 350px;
+    min-width: 350px;
     background: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 1px 1px;
-   
+    border-radius: 4px;
+
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    ;
+
     border: 1px solid #e0e0e0;
-    
+
 }
 
 .bike-card:hover {
-    box-shadow: 0 8px 30px ;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
     transform: translateY(-5px);
 }
 
@@ -104,8 +107,8 @@ body {
 }
 
 .bike-image img {
-    width: 100%;
-    height: 100%;
+    width: 417px;
+    height: 250px;
     object-fit: contain;
 
 }
@@ -141,7 +144,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     border: 2px solid #ddd;
- 
+
     position: relative;
 }
 
@@ -182,4 +185,3 @@ body {
     color: #666;
     font-size: 1.1rem;
 }
-
