@@ -145,17 +145,14 @@ function renderBikes() {
         swatch.title = colorHex;
 
         swatch.onclick = () => {
-          // Remove active class from all swatches in this card
           card
             .querySelectorAll(".color-swatch")
             .forEach((s) => s.classList.remove("active"));
           swatch.classList.add("active");
 
-          // Handle image switching based on color
           const imgTag = card.querySelector("img");
           const bikeId = bike.id;
 
-          // Try to find color-specific image
           const colorSpecificImage = bike.bikeImages.find(
             (img) =>
               img.includes(colorHex.replace("#", "")) ||
