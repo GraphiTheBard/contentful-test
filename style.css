@@ -167,21 +167,15 @@ body {
 .loading {
     text-align: center;
     padding: 4rem 0;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: #666;
 }
 
 .error {
-    text-align: center;
+ 
     padding: 4rem 0;
     color: #d32f2f;
-    font-size: 1.1rem;
+    font-size: 1rem;
 }
 
-.no-bikes {
-    text-align: center;
-    padding: 4rem 0;
-    color: #666;
-    font-size: 1.1rem;
-}
 
