@@ -167,8 +167,7 @@ function renderBikes() {
             imgTag.src = bike.bikeImages[0] || "/placeholder-bike.jpg";
           }
 
-          console.log(`Color changed to ${colorHex} for bike ${bikeId}`);
-          console.log("Available images:", bike.bikeImages);
+          console.log(bike.bikeImages);
         };
 
         coloursDiv.appendChild(swatch);
