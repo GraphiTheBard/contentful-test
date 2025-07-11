@@ -118,7 +118,9 @@ function renderBikes() {
     card.onclick = () => {
       // window.location.href = `/details.html?id=${encodeURIComponent(bike.id)}`;
       history.pushState =
-        (null, "", `/details.html?id=${encodeURIComponent(bike.id)}`);
+        (null,
+        "",
+        `/contentful-test/details.html?id=${encodeURIComponent(bike.id)}`);
     };
 
     const initialImage = bike.bikeImages.length > 0 ? bike.bikeImages[0] : "";
