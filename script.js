@@ -120,7 +120,7 @@ function renderBikes() {
       history.pushState =
         (null,
         "",
-        `contentful-test/details.html?id=${encodeURIComponent(bike.id)}`);
+        `/contentful-test/details.html?id=${encodeURIComponent(bike.id)}`);
     };
 
     const initialImage = bike.bikeImages.length > 0 ? bike.bikeImages[0] : "";
