@@ -116,9 +116,9 @@ function renderBikes() {
     const card = document.createElement("div");
     card.className = "bike-card";
     card.onclick = () => {
-      window.location.href = `/contentful-test/details.html?id=${encodeURIComponent(
-        bike.id
-      )}`;
+      // window.location.href = `/details.html?id=${encodeURIComponent(bike.id)}`;
+      history.pushState =
+        (null, "", `/details.html?id=${encodeURIComponent(bike.id)}`);
     };
 
     const initialImage = bike.bikeImages.length > 0 ? bike.bikeImages[0] : "";
