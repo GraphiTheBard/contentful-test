@@ -1,0 +1,44 @@
+* {
+  font-family: "Franklin Gothic ATF", "Franklin Gothic Medium", "Arial Narrow",
+    Arial, sans-serif;
+
+  padding: 4px 10px;
+  letter-spacing: 3px;
+  font-weight: 800;
+}
+
+.details-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.bike-model {
+  width: 45%;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+h2 {
+  font-size: 74px;
+  text-transform: uppercase;
+}
+
+.bike-price {
+  font-size: 23px;
+  margin: 0px;
+}
+
+img {
+  width: 920px;
+  height: 510px;
+  margin: 0px;
+  margin-left: 120px;
+}
+.color-swatch:hover {
+  border-color: #000;
+  transform: scale(1.1);
+}
+
+.color-swatch.active {
+  border-color: #000;
+}
