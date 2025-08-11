@@ -147,6 +147,7 @@ function renderBikes() {
         swatch.className = `color-swatch ${colorIndex === 0 ? "active" : ""}`;
         swatch.style.background = colorHex;
         swatch.setAttribute("data-color", colorHex);
+        swatch.setAttribute("data-bike", bike.bikeName);
         swatch.title = colorHex;
 
         swatch.onclick = () => {
@@ -192,3 +193,4 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
