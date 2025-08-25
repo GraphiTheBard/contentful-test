@@ -115,6 +115,11 @@ function renderBikes() {
   bikesToShow.forEach((bike) => {
     const card = document.createElement("div");
     card.className = "bike-card";
+    card.onclick = () => {
+      // window.location.href = `/details.html?id=${encodeURIComponent(bike.id)}`;
+      history.pushState =
+        (null, "", `/details.html?id=${encodeURIComponent(bike.id)}`);
+    };
 
     const initialImage = bike.bikeImages.length > 0 ? bike.bikeImages[0] : "";
 
@@ -142,6 +147,7 @@ function renderBikes() {
         swatch.className = `color-swatch ${colorIndex === 0 ? "active" : ""}`;
         swatch.style.background = colorHex;
         swatch.setAttribute("data-color", colorHex);
+        swatch.setAttribute("data-bike", bike.bikeName);
         swatch.title = colorHex;
 
         swatch.onclick = () => {
@@ -164,11 +170,10 @@ function renderBikes() {
 
             imgTag.src = colorSpecificImage;
           } else {
-            imgTag.src = bike.bikeImages[0] || "/placeholder-bike.jpg";
+            imgTag.src = bike.bikeImages[0] || "";
           }
 
-          console.log(`Color changed to ${colorHex} for bike ${bikeId}`);
-          console.log("Available images:", bike.bikeImages);
+          console.log(bike.bikeImages);
         };
 
         coloursDiv.appendChild(swatch);
@@ -188,3 +193,4 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
