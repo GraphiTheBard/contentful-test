@@ -14,7 +14,7 @@ async function fetchBikes() {
       include: 2,
     });
 
-    console.log(entries);
+    console.log("shbxjssssssssssssssssssssssssssssssssssssssssssssssssssss");
 
     allBikes = entries.items.map((item) => {
       const fields = item.fields;
@@ -193,6 +193,7 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
 
 
