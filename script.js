@@ -1,5 +1,5 @@
 const client = contentful.createClient({
-  space: SPACE_KEY,
+  space: "80qcbh7fbkhr",
   accessToken: ACCESS_TOKEN,
 });
 
@@ -193,4 +193,5 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
