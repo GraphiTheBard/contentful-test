@@ -1,37 +1,51 @@
-
 <html>
-
 <head>
     <title>Harley Davidson</title>
     <link rel="stylesheet" href="style.css">
-     <script src="at.js"></script>
-     <script src="https://assets.adobedtm.com/8459819b208c/b6ee99275a0f/launch-b2e9519d1c9f-development.min.js" async></script>
-</head>
 
+    <!-- Pre-hiding snippet (optional but recommended to reduce flicker) -->
+    <style>
+        .at-body-hide { visibility: hidden; }
+    </style>
+    <script>
+        document.documentElement.className += ' at-body-hide';
+    </script>
+
+    <!-- Adobe Target at.js script - Load as early as possible -->
+    <script src="at.js"></script>
+
+    <!-- Adobe Launch - Tag management library (load async to not block rendering) -->
+    <script src="https://assets.adobedtm.com/8459819b208c/b6ee99275a0f/launch-b2e9519d1c9f-development.min.js" async></script>
+
+    <!-- Adobe Target offer request and apply -->
+    <script>
+        adobe.target.getOffer({
+            mbox: "target-global-mbox",
+            success: function(offer) {
+                adobe.target.applyOffer({ offer: offer });
+                // Reveal content after target offers are applied
+                document.documentElement.classList.remove('at-body-hide');
+            },
+            error: function() {
+                // Reveal content if Adobe Target request fails
+                document.documentElement.classList.remove('at-body-hide');
+            }
+        });
+    </script>
+</head>
 <body>
     <div class="header">
         <h1>Harley-Davidson</h1>
     </div>
-
     <div class="nav-container">
-        <div class="nav-buttons" id="nav-buttons">
-
-        </div>
+        <div class="nav-buttons" id="nav-buttons"></div>
     </div>
-
     <div class="container">
-        <div class="bikes-grid" id="bikes-container">
-
-        </div>
+        <div class="bikes-grid" id="bikes-container"></div>
     </div>
-   
+
+    <!-- Contentful and custom script -->
     <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
-
-    <script src ="script.js"></script>
+    <script src="script.js"></script>
 </body>
-
 </html>
-
-
-
-
