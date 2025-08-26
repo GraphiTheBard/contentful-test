@@ -1,6 +1,6 @@
 const client = contentful.createClient({
   space: "80qcbh7fbkhr",
-  accessToken: ACCESS_TOKEN,
+  accessToken: "HdS3u9MOfM0ZDHPETdrikIFV4yyXs8lW5vT3fMnUS1k",
 });
 
 let allBikes = [];
@@ -193,5 +193,6 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
 
