@@ -116,10 +116,19 @@ function renderBikes() {
     const card = document.createElement("div");
     card.className = "bike-card";
     card.onclick = () => {
-      // window.location.href = `/details.html?id=${encodeURIComponent(bike.id)}`;
-      history.pushState =
-        (null, "", `/details.html?id=${encodeURIComponent(bike.id)}`);
-    };
+  const newUrl = `/details.html?id=${encodeURIComponent(bike.id)}`;
+
+  if (typeof history.pushState === "function") {
+    
+    history.pushState({ bikeId: bike.id }, "", newUrl);
+   
+    window.dispatchEvent(new PopStateEvent("popstate", { state: { bikeId: bike.id } }));
+  } else {
+
+    window.location.href = newUrl;
+  }
+};
+
 
     const initialImage = bike.bikeImages.length > 0 ? bike.bikeImages[0] : "";
 
@@ -193,6 +202,7 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
 
 
