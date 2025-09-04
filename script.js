@@ -116,17 +116,9 @@ function renderBikes() {
     const card = document.createElement("div");
     card.className = "bike-card";
     card.onclick = () => {
-  const newUrl = `/details.html?id=${encodeURIComponent(bike.id)}`;
+  window.location.href = `details.html?id=${encodeURIComponent(bike.id)}`;
+};
 
-  if (typeof history.pushState === "function") {
-    
-    history.pushState({ bikeId: bike.id }, "", newUrl);
-   
-    window.dispatchEvent(new PopStateEvent("popstate", { state: { bikeId: bike.id } }));
-  } else {
-
-    window.location.href = newUrl;
-  }
 };
 
 
@@ -202,6 +194,7 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
 
 
