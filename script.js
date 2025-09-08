@@ -150,6 +150,7 @@ function renderBikes() {
         swatch.title = colorHex;
 
         swatch.onclick = () => {
+          event.stopPropagation();
           card
             .querySelectorAll(".color-swatch")
             .forEach((s) => s.classList.remove("active"));
@@ -192,6 +193,7 @@ function renderBikes() {
 }
 
 document.addEventListener("DOMContentLoaded", fetchBikes);
+
 
 
 
