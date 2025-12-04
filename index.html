@@ -3,6 +3,38 @@
 <head>
     <title>Harley-Davidson</title>
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        #drawer {
+            position: fixed;
+            top: 0;
+            right: -300px; /* Initially hidden */
+            width: 300px;
+            height: 100%;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+            transition: right 0.3s ease;
+        }
+
+        #drawer.open {
+            right: 0; /* Drawer open */
+        }
+
+        .drawer-btns button {
+            background-color: #555;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .drawer-btns button:hover {
+            background-color: #888;
+        }
+    </style>
+
     <script>window.targetGlobalSettings = {
   disableContent: false
 };</script>
@@ -32,9 +64,89 @@
         <div class="bikes-grid" id="bikes-container">
         </div>
     </div>
+
+    <!-- Test for SPA working -->
+    <div class="container">
+        <!-- Converted the input field into a form -->
+        <form id="search-form" method="get" >
+            <input type="text" name="q" id="search" placeholder="Enter search term" autocomplete="off">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    
+    
+    <div id="drawer-btn" class="container">
+        <button type="button" id="open-drawer-btn">Click here to open a drawer</button>
+    </div>
    
     <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
     <script src ="script.js"></script>
+
+    <!-- drawer script -->
+    <script>
+        // Get reference to the button that opens the drawer
+        const openDrawerBtn = document.getElementById('open-drawer-btn');
+
+        // Function to create and append the drawer to the DOM
+        function openDrawer() {
+            // Check if the drawer already exists, to prevent multiple drawers
+            if (document.getElementById('drawer')) return;
+
+            // Create the drawer container
+            const drawer = document.createElement('div');
+            drawer.id = 'drawer';
+            drawer.style.position = 'fixed';
+            drawer.style.top = '0';
+            drawer.style.right = '0';
+            drawer.style.width = '300px';
+            drawer.style.height = '100%';
+            drawer.style.backgroundColor = '#333';
+            drawer.style.color = 'white';
+            drawer.style.padding = '20px';
+            drawer.style.boxShadow = '-2px 0 5px rgba(0, 0, 0, 0.5)';
+
+            // Create a button container
+            const drawerBtns = document.createElement('div');
+            drawerBtns.classList.add('drawer-btns');
+
+            // Create buttons inside the drawer
+            const btn1 = document.createElement('button');
+            btn1.textContent = 'Sample Button 1';
+
+            const btn2 = document.createElement('button');
+            btn2.textContent = 'Sample Button 2';
+
+            // Create a close button inside the drawer
+            const closeBtn = document.createElement('button');
+            closeBtn.textContent = 'Close Drawer';
+
+            // Add event listener to the close button
+            closeBtn.addEventListener('click', closeDrawer);
+
+            // Append buttons to the drawer button container
+            drawerBtns.appendChild(btn1);
+            drawerBtns.appendChild(btn2);
+            drawerBtns.appendChild(closeBtn);
+
+            // Append the button container to the drawer
+            drawer.appendChild(drawerBtns);
+
+            // Append the drawer to the body
+            document.body.appendChild(drawer);
+        }
+
+        // Function to close and remove the drawer from the DOM
+        function closeDrawer() {
+            const drawer = document.getElementById('drawer');
+            if (drawer) {
+                drawer.remove();
+            }
+        }
+
+        // Add event listener to the open drawer button
+        openDrawerBtn.addEventListener('click', openDrawer);
+
+    </script>
      
 </body>
 </html>
@@ -46,3 +158,4 @@
 
 
 
+ 
