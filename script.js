@@ -29,6 +29,12 @@ window.bikePage =  {
   }
 };
 
+window.targetPageParams = function () {
+  return {
+    profileName: bikePage.dl.profileName
+  };
+};
+
 async function fetchBikes() {
 
   try {
