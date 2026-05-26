@@ -35,7 +35,19 @@
         }
     </style>
 
-    <script>window.targetGlobalSettings = {
+    <script>
+        
+window.bikePage = {
+  dl: { profileName: "paid_user" }
+};
+
+window.targetPageParams = function () {
+  return {
+    profileName: bikePage.dl.profileName
+  };
+};
+
+        window.targetGlobalSettings = {
   disableContent: false
 };</script>
     <script src="at.js"></script>
