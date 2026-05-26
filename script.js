@@ -23,10 +23,10 @@ mbox.param('profileName')
 ========================================================
 */
 
-window.targetPageParams = function () {
-  return {
+window.bikePage =  {
+  dl: {
     profileName: "paid_user"
-  };
+  }
 };
 
 async function fetchBikes() {
