@@ -3,65 +3,37 @@ const client = contentful.createClient({
   accessToken: "HdS3u9MOfM0ZDHPETdrikIFV4yyXs8lW5vT3fMnUS1k",
 });
 
-/*
-========================================================
-ADOBE TARGET DATA LAYER
-========================================================
-*/
-
-window.bikePage = {
-  dl: {
-    profileName: "paid_user"
-  }
-};
-
-/*
-========================================================
-TARGET PAGE PARAMS
-========================================================
-
-Adobe Target reads this during page load.
-
-This MUST exist before at.js fires.
-
-========================================================
-*/
-
-window.targetPageParams = function () {
-
-  console.log("targetPageParams fired");
-
-  return {
-    profileName: window.bikePage.dl.profileName
-  };
-};
-
-console.log("Bike DL:");
-console.log(window.bikePage.dl);
-
-console.log("Target Params:");
-console.log(window.targetPageParams());
-
-/*
-========================================================
-CONTENTFUL
-========================================================
-*/
-
-const client = contentful.createClient({
-  space: "80qcbh7fbkhr",
-  accessToken: "HdS3u9MOfM0ZDHPETdrikIFV4yyXs8lW5vT3fMnUS1k",
-});
-
 let allBikes = [];
 let bikeTypes = [];
 let currentType = null;
 
 /*
 ========================================================
-FETCH BIKES
+ADOBE TARGET TEST DATA
+========================================================
+
+This sends hardcoded profile data to Adobe Target.
+
+Adobe Target reads this automatically during page load.
+
+Profile Script can access this using:
+
+mbox.param('profileName')
+
 ========================================================
 */
+
+window.bikePage =  {
+  dl: {
+    profileName: "paid_user"
+  }
+};
+
+window.targetPageParams = function () {
+  return {
+    profileName: bikePage.dl.profileName
+  };
+};
 
 async function fetchBikes() {
 
@@ -128,12 +100,6 @@ async function fetchBikes() {
   }
 }
 
-/*
-========================================================
-FORMAT PRICE
-========================================================
-*/
-
 function formatPrice(price) {
 
   if (!price) return "";
@@ -145,12 +111,6 @@ function formatPrice(price) {
     maximumFractionDigits: 0,
   }).format(price);
 }
-
-/*
-========================================================
-NAVIGATION
-========================================================
-*/
 
 function renderNavBar() {
 
@@ -201,12 +161,6 @@ function updateActiveButton(activeBtn) {
   activeBtn.classList.add("active");
 }
 
-/*
-========================================================
-RENDER BIKES
-========================================================
-*/
-
 function renderBikes() {
 
   const container =
@@ -233,22 +187,18 @@ function renderBikes() {
     card.className = "bike-card";
 
     /*
-    ========================================================
+    ==========================================
     CLICK TEST
-    ========================================================
+    ==========================================
     */
 
     card.onclick = () => {
 
       console.log("Bike clicked");
 
-      console.log("Current DL:");
+      console.log("Adobe Target Params:");
 
-      console.log(window.bikePage.dl);
-
-      console.log("Current Target Params:");
-
-      console.log(window.targetPageParams());
+      console.log(targetPageParams());
     };
 
     const initialImage =
@@ -353,12 +303,6 @@ function renderBikes() {
     container.appendChild(card);
   });
 }
-
-/*
-========================================================
-START
-========================================================
-*/
 
 document.addEventListener(
   "DOMContentLoaded",
