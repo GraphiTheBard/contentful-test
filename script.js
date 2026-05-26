@@ -25,7 +25,7 @@ mbox.param('profileName')
 
 window.targetPageParams = function () {
   return {
-    profileName: "bike_lover"
+    profileName: "paid_user"
   };
 };
 
