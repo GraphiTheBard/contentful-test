@@ -9,43 +9,37 @@ let currentType = null;
 
 /*
 ========================================================
-ADOBE TARGET DATA LAYER
+ADOBE TARGET TEST DATA
 ========================================================
 
-This function sends custom data to Adobe Target.
+This sends hardcoded profile data to Adobe Target.
 
-Whenever Target loads a page or an mbox,
-it reads these values automatically.
+Adobe Target reads this automatically during page load.
 
-We dynamically update:
-- selected bike
-- bike type
-- bike id
+Profile Script can access this using:
 
-Profile Scripts can then read these values
-using:
-
-mbox.param('bikeType')
+mbox.param('profileName')
 
 ========================================================
 */
 
 window.targetPageParams = function () {
   return {
-    bikeId: window.selectedBikeId || "",
-    bikeType: window.selectedBikeType || "",
-    bikeName: window.selectedBikeName || "",
+    profileName: "bike_lover"
   };
 };
 
 async function fetchBikes() {
+
   try {
+
     const entries = await client.getEntries({
       content_type: "harleyListing",
       include: 2,
     });
 
     allBikes = entries.items.map((item) => {
+
       const fields = item.fields;
 
       const bikeType = Array.isArray(fields.bikeType)
@@ -53,13 +47,17 @@ async function fetchBikes() {
         : fields.bikeType;
 
       const colours = fields.bikeColour || [];
+
       const images = fields.bikeImage || [];
 
       const imageUrls = [];
 
       images.forEach((img) => {
+
         if (img?.fields?.file?.url) {
+
           const url = img.fields.file.url;
+
           const fullUrl = url.startsWith("//")
             ? `https:${url}`
             : url;
@@ -81,9 +79,11 @@ async function fetchBikes() {
     bikeTypes = [...new Set(allBikes.map((b) => b.bikeType))];
 
     renderNavBar();
+
     renderBikes();
 
   } catch (error) {
+
     console.error(error);
 
     document.getElementById("bikes-container").innerHTML =
@@ -95,6 +95,7 @@ async function fetchBikes() {
 }
 
 function formatPrice(price) {
+
   if (!price) return "";
 
   return new Intl.NumberFormat("en-US", {
@@ -112,7 +113,10 @@ function renderNavBar() {
   nav.innerHTML = "";
 
   if (bikeTypes.length === 0) {
-    nav.innerHTML = '<div class="no-bikes">No categories</div>';
+
+    nav.innerHTML =
+      '<div class="no-bikes">No categories</div>';
+
     return;
   }
 
@@ -122,7 +126,8 @@ function renderNavBar() {
 
     btn.textContent = type;
 
-    btn.className = `nav-btn ${index === 0 ? "active" : ""}`;
+    btn.className =
+      `nav-btn ${index === 0 ? "active" : ""}`;
 
     btn.onclick = () => {
 
@@ -152,7 +157,8 @@ function updateActiveButton(activeBtn) {
 
 function renderBikes() {
 
-  const container = document.getElementById("bikes-container");
+  const container =
+    document.getElementById("bikes-container");
 
   container.innerHTML = "";
 
@@ -161,7 +167,10 @@ function renderBikes() {
     : allBikes;
 
   if (bikesToShow.length === 0) {
-    container.innerHTML = '<div class="no-bikes">No bikes</div>';
+
+    container.innerHTML =
+      '<div class="no-bikes">No bikes</div>';
+
     return;
   }
 
@@ -172,78 +181,18 @@ function renderBikes() {
     card.className = "bike-card";
 
     /*
-    ========================================================
-    USER CLICKS A BIKE
-    ========================================================
-
-    We store selected bike info globally.
-
-    Adobe Target reads these through
-    targetPageParams().
-
-    Then we trigger Target manually.
-
-    ========================================================
+    ==========================================
+    CLICK TEST
+    ==========================================
     */
 
     card.onclick = () => {
 
-      /*
-      ===========================================
-      SET VARIABLES FOR TARGET
-      ===========================================
-      */
+      console.log("Bike clicked");
 
-      window.selectedBikeId = bike.id;
+      console.log("Adobe Target Params:");
 
-      window.selectedBikeType = bike.bikeType;
-
-      window.selectedBikeName = bike.bikeName;
-
-      console.log("Sending to Adobe Target:");
-
-      console.log({
-        bikeId: window.selectedBikeId,
-        bikeType: window.selectedBikeType,
-        bikeName: window.selectedBikeName,
-      });
-
-      /*
-      ===========================================
-      FIRE TARGET REQUEST
-      ===========================================
-
-      This forces Adobe Target to read
-      targetPageParams()
-
-      ===========================================
-      */
-
-      if (window.adobe && adobe.target) {
-
-        adobe.target.getOffers({
-          request: {
-            execute: {
-              pageLoad: {}
-            }
-          }
-        });
-
-        console.log("Adobe Target request fired");
-      }
-
-      /*
-      ===========================================
-      REDIRECT USER
-      ===========================================
-      */
-
-      setTimeout(() => {
-
-        window.location.href =
-          `/contentful-test/details.html?id=${encodeURIComponent(bike.id)}`;
-
-      }, 300);
+      console.log(targetPageParams());
     };
 
     const initialImage =
@@ -324,7 +273,8 @@ function renderBikes() {
 
           } else {
 
-            imgTag.src = bike.bikeImages[0] || "";
+            imgTag.src =
+              bike.bikeImages[0] || "";
           }
         };
 
@@ -348,4 +298,7 @@ function renderBikes() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", fetchBikes);
+document.addEventListener(
+  "DOMContentLoaded",
+  fetchBikes
+);
